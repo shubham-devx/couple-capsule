@@ -64,7 +64,7 @@ const fetchCapsule = async () => {
     }
 
     await axios.post(
-      `http://localhost:5000/api/capsule/${roomId}/memory`,
+  `${import.meta.env.VITE_API_URL}/api/capsule/${roomId}/memory`,
       {
         title,
         image,
@@ -84,7 +84,7 @@ const fetchCapsule = async () => {
   const start = new Date(capsule.anniversaryDate);
   const now = new Date();
 
-  const diff =  start-now ;
+  const diff =  now-start ;
 
   return Math.floor(
     diff / (1000 * 60 * 60 * 24)
@@ -93,7 +93,7 @@ const fetchCapsule = async () => {
 
   const updateAnniversaryDate = async () => {
   await axios.put(
-    `http://localhost:5000/api/capsule/${roomId}/date`,
+  `${import.meta.env.VITE_API_URL}/api/capsule/${roomId}/date`,
     {
       anniversaryDate,
     }

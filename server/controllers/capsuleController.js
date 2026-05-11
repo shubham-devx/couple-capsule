@@ -48,18 +48,30 @@ exports.addMemory = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-exports.updateAnniversaryDate = async (req, res) => {
-  try {
-    const capsule = await Capsule.findOne({
-      roomId: req.params.roomId,
-    });
+exports.updateAnniversaryDate =
+  async (req, res) => {
 
-    capsule.anniversaryDate = req.body.anniversaryDate;
+    try {
 
-    await capsule.save();
+      const { roomId } = req.params;
 
-    res.json(capsule);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+      const { anniversaryDate } =
+        req.body;
+
+      const capsule =
+        await Capsule.findOneAndUpdate(
+          { roomId },
+          { anniversaryDate },
+          { new: true }
+        );
+
+      res.json(capsule);
+
+    } catch (error) {
+
+      res.status(500).json({
+        message: error.message,
+      });
+
+    }
 };
