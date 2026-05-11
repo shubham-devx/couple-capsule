@@ -44,7 +44,7 @@ const [savedLetters, setSavedLetters] =
   useState([]);
 const fetchCapsule = async () => {
   const res = await axios.get(
-    `http://localhost:5000/api/capsule/${roomId}`
+    `${import.meta.env.VITE_API_URL}/api/capsule/${roomId}`
   );
 
   setCapsule(res.data);

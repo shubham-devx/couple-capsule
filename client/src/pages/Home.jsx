@@ -12,12 +12,12 @@ function Home() {
     try {
 
       const res = await axios.post(
-        "https://couple-capsule.onrender.com",
-        {
-          personOne,
-          personTwo,
-        }
-      );
+  `${import.meta.env.VITE_API_URL}/api/capsule/create`,
+  {
+    personOne,
+    personTwo,
+  }
+);
 
       window.location.href =
         `/space/${res.data.roomId}`;
