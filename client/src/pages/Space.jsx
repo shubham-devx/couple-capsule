@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
 import Masonry from "react-masonry-css";
-
+import Particles from "react-tsparticles";
 
 function Space() {
   const { roomId } = useParams();
@@ -17,6 +17,31 @@ const [image, setImage] = useState("");
 
 const [anniversaryDate, setAnniversaryDate] =
   useState("");
+  const [theme, setTheme] =
+  useState("romantic");
+  const [missYou, setMissYou] =
+  useState(false);
+
+const [missTime, setMissTime] =
+  useState("");
+
+  const [meetDate, setMeetDate] =
+  useState("");
+
+const [meetTitle, setMeetTitle] =
+  useState("Next Meet ❤️");
+
+  const [futureLetter, setFutureLetter] =
+  useState("");
+
+const [futureTitle, setFutureTitle] =
+  useState("");
+
+const [futureDate, setFutureDate] =
+  useState("");
+
+const [savedLetters, setSavedLetters] =
+  useState([]);
 const fetchCapsule = async () => {
   const res = await axios.get(
     `http://localhost:5000/api/capsule/${roomId}`
@@ -148,11 +173,232 @@ const calculateLoveLevel = () => {
   return "Growing Together ✨";
 };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-zinc-900 to-black text-white">
+const getBackgroundStyle = () => {
 
+  switch (theme) {
+
+    case "romantic":
+      return "bg-gradient-to-br from-pink-900 via-red-900 to-black";
+
+    case "calm":
+      return "bg-gradient-to-br from-blue-950 via-zinc-900 to-cyan-900";
+
+    case "sad":
+      return "bg-gradient-to-br from-zinc-950 via-slate-900 to-gray-900";
+
+    case "dreamy":
+      return "bg-gradient-to-br from-purple-900 via-pink-900 to-indigo-900";
+
+    case "passion":
+      return "bg-gradient-to-br from-red-950 via-orange-900 to-black";
+
+    default:
+      return "bg-black";
+  }
+};
+const renderThemeEffect = () => {
+
+  // ❤️ ROMANTIC
+  if (theme === "romantic") {
+    return (
+      <>
+        <div className="absolute top-20 left-20 text-6xl animate-bounce z-0">
+          ❤️
+        </div>
+
+        <div className="absolute top-40 right-32 text-5xl animate-pulse z-0">
+          💖
+        </div>
+
+        <div className="absolute bottom-32 left-1/3 text-6xl animate-bounce z-0">
+          💘
+        </div>
+      </>
+    );
+  }
+
+  // 🌙 CALM
+  if (theme === "calm") {
+    return (
+      <>
+        <div className="absolute top-20 left-20 text-4xl text-white animate-pulse">
+          ✨
+        </div>
+
+        <div className="absolute top-40 right-20 text-4xl text-white animate-pulse">
+          ⭐
+        </div>
+
+        <div className="absolute bottom-40 left-1/2 text-4xl text-white animate-pulse">
+          ✨
+        </div>
+      </>
+    );
+  }
+
+  // 🌧️ SAD
+  if (theme === "sad") {
+    return (
+      <div className="absolute inset-0 z-0 opacity-20">
+
+        <div className="absolute top-0 left-20 text-6xl animate-bounce">
+          🌧️
+        </div>
+
+        <div className="absolute top-40 right-20 text-6xl animate-pulse">
+          ☔
+        </div>
+
+      </div>
+    );
+  }
+
+  // ✨ DREAMY
+  if (theme === "dreamy") {
+    return (
+      <>
+        <div className="absolute top-20 left-20 text-5xl animate-pulse">
+          ✨
+        </div>
+
+        <div className="absolute top-60 right-20 text-5xl animate-bounce">
+          🌌
+        </div>
+
+        <div className="absolute bottom-20 left-1/2 text-5xl animate-pulse">
+          💫
+        </div>
+      </>
+    );
+  }
+
+  // 🔥 PASSION
+  if (theme === "passion") {
+    return (
+      <>
+        <div className="absolute top-10 left-10 w-[300px] h-[300px] bg-red-500/30 blur-[120px] rounded-full animate-pulse" />
+
+        <div className="absolute bottom-10 right-10 w-[300px] h-[300px] bg-orange-500/30 blur-[120px] rounded-full animate-pulse" />
+
+        <div className="absolute top-20 right-20 text-6xl">
+          🔥
+        </div>
+      </>
+    );
+  }
+};
+
+const sendMissYou = () => {
+
+  setMissYou(true);
+
+  const now = new Date();
+
+  setMissTime(
+    now.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+  );
+
+  setTimeout(() => {
+    setMissYou(false);
+  }, 5000);
+};
+
+const calculateMeetCountdown = () => {
+
+  if (!meetDate) return 0;
+
+  const today = new Date();
+
+  const future = new Date(meetDate);
+
+  const diff = future - today;
+
+  return Math.ceil(
+    diff / (1000 * 60 * 60 * 24)
+  );
+};
+
+const saveFutureLetter = () => {
+
+  if (
+    !futureLetter ||
+    !futureTitle ||
+    !futureDate
+  ) {
+    return alert("Fill all fields ❤️");
+  }
+
+  const newLetter = {
+    title: futureTitle,
+    message: futureLetter,
+    unlockDate: futureDate,
+  };
+
+  setSavedLetters([
+    ...savedLetters,
+    newLetter,
+  ]);
+
+  setFutureLetter("");
+  setFutureTitle("");
+  setFutureDate("");
+};
+
+const isUnlocked = (date) => {
+
+  const today = new Date();
+
+  const unlockDate = new Date(date);
+
+  return today >= unlockDate;
+};
+
+const getMoodSong = () => {
+
+  switch (theme) {
+
+    // ❤️ ROMANTIC
+    case "romantic":
+      return "https://open.spotify.com/embed/track/4PTG3Z6ehGkBFwjybzWkR8";
+
+    // 🌙 CALM
+    case "calm":
+      return "https://open.spotify.com/embed/track/0WqiDwKJclirSYG9v5tayI";
+
+    // 🌧️ SAD
+    case "sad":
+      return "https://open.spotify.com/embed/track/6xGruZOHLs39ZbVccQTuPZ";
+
+    // ✨ DREAMY
+    case "dreamy":
+      return "https://open.spotify.com/embed/track/3z8h0TU7ReDPLIbEnYhWZb";
+
+    // 🔥 PASSION
+    case "passion":
+      return "https://open.spotify.com/embed/track/2plbrEY59IikOBgBGLjaoe";
+
+    default:
+      return "https://open.spotify.com/embed/track/4PTG3Z6ehGkBFwjybzWkR8";
+  }
+};
+
+
+  return (
+    
+  <div
+  className={`min-h-screen text-white transition-all duration-1000 overflow-hidden relative ${getBackgroundStyle()}`}
+>
+  {renderThemeEffect()}
+{/* BACKGROUND GLOWS */}
+
+    <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-pink-500/20 blur-[120px] rounded-full" />
+
+    <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-red-500/20 blur-[120px] rounded-full" />
       {/* CONTAINER */}
-      <div className="max-w-6xl mx-auto px-4 py-10">
+    <div className="relative max-w-6xl mx-auto px-4 py-10">
 
 
   {/* RELATIONSHIP DATE */}
@@ -246,6 +492,353 @@ const calculateLoveLevel = () => {
   </p>
 
 </motion.div>
+
+{/* MISS YOU BUTTON */}
+
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  className="mb-10 bg-white/5 border border-pink-500/20 p-6 rounded-3xl backdrop-blur-md"
+>
+
+  <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+
+    <div>
+
+      <h2 className="text-3xl font-bold">
+        Missing Them? 🥺
+      </h2>
+
+      <p className="text-zinc-400 mt-2">
+        Send a little emotional signal ❤️
+      </p>
+
+    </div>
+
+    <motion.button
+      whileHover={{
+        scale: 1.08,
+      }}
+      whileTap={{
+        scale: 0.95,
+      }}
+      onClick={sendMissYou}
+      className="bg-gradient-to-r from-pink-500 to-red-500 px-8 py-4 rounded-2xl text-lg font-semibold shadow-xl"
+    >
+      Missing You ❤️
+    </motion.button>
+
+  </div>
+
+{/* SHARED COUNTDOWN */}
+
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  className="mb-10 bg-white/5 border border-cyan-500/20 p-6 rounded-3xl backdrop-blur-md"
+>
+
+  <h2 className="text-3xl font-bold mb-6">
+    Shared Countdown ⏳
+  </h2>
+
+  <div className="flex flex-col md:flex-row gap-4 mb-6">
+
+    <input
+      type="text"
+      placeholder="Event Name ❤️"
+      value={meetTitle}
+      onChange={(e) =>
+        setMeetTitle(e.target.value)
+      }
+      className="flex-1 p-4 rounded-2xl bg-zinc-800 outline-none"
+    />
+
+    <input
+      type="date"
+      value={meetDate}
+      onChange={(e) =>
+        setMeetDate(e.target.value)
+      }
+      className="p-4 rounded-2xl bg-zinc-800 outline-none"
+    />
+
+  </div>
+
+  {/* COUNTDOWN DISPLAY */}
+
+  {meetDate && (
+
+    <motion.div
+      initial={{
+        opacity: 0,
+        scale: 0.9,
+      }}
+      animate={{
+        opacity: 1,
+        scale: 1,
+      }}
+      className="bg-cyan-500/10 border border-cyan-500/20 rounded-3xl p-8 text-center"
+    >
+
+      <h3 className="text-3xl font-bold text-cyan-300">
+        {meetTitle}
+      </h3>
+
+      <p className="text-7xl font-bold mt-6">
+        {calculateMeetCountdown()}
+      </p>
+
+      <p className="text-zinc-300 mt-4 text-xl">
+        Days Remaining ❤️
+      </p>
+
+    </motion.div>
+  )}
+
+</motion.div>
+
+{/* FUTURE LETTERS */}
+
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  className="mb-10 bg-white/5 border border-purple-500/20 p-6 rounded-3xl backdrop-blur-md"
+>
+
+  <h2 className="text-3xl font-bold mb-6">
+    Future Letters 💌
+  </h2>
+
+  {/* INPUTS */}
+
+  <div className="flex flex-col gap-4">
+
+    <input
+      type="text"
+      placeholder="Letter Title ❤️"
+      value={futureTitle}
+      onChange={(e) =>
+        setFutureTitle(e.target.value)
+      }
+      className="p-4 rounded-2xl bg-zinc-800 outline-none"
+    />
+
+    <textarea
+      placeholder="Write your future letter ✨"
+      value={futureLetter}
+      onChange={(e) =>
+        setFutureLetter(e.target.value)
+      }
+      className="p-4 rounded-2xl bg-zinc-800 outline-none min-h-[150px]"
+    />
+
+    <input
+      type="date"
+      value={futureDate}
+      onChange={(e) =>
+        setFutureDate(e.target.value)
+      }
+      className="p-4 rounded-2xl bg-zinc-800 outline-none"
+    />
+
+    <button
+      onClick={saveFutureLetter}
+      className="bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-4 rounded-2xl text-lg font-semibold"
+    >
+      Save Future Letter 💌
+    </button>
+
+  </div>
+
+  {/* LETTERS */}
+
+  <div className="mt-10 grid gap-6">
+
+    {savedLetters.map((letter, index) => (
+
+      <motion.div
+        key={index}
+        initial={{
+          opacity: 0,
+          y: 20,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        className="bg-black/30 border border-purple-500/20 rounded-3xl p-6"
+      >
+
+        <div className="flex items-center justify-between flex-wrap gap-4">
+
+          <div>
+
+            <h3 className="text-2xl font-bold text-purple-300">
+              {letter.title}
+            </h3>
+
+            <p className="text-zinc-400 mt-2">
+              Unlocks on {letter.unlockDate}
+            </p>
+
+          </div>
+
+          {!isUnlocked(letter.unlockDate) ? (
+
+            <div className="bg-zinc-800 px-5 py-3 rounded-2xl">
+              🔒 Locked
+            </div>
+
+          ) : (
+
+            <div className="bg-pink-500 px-5 py-3 rounded-2xl">
+              ❤️ Opened
+            </div>
+
+          )}
+
+        </div>
+
+        {/* MESSAGE */}
+
+        {isUnlocked(letter.unlockDate) && (
+
+          <motion.div
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            className="mt-6 bg-white/5 p-6 rounded-2xl"
+          >
+
+            <p className="text-lg leading-relaxed text-zinc-200">
+              {letter.message}
+            </p>
+
+          </motion.div>
+        )}
+
+      </motion.div>
+    ))}
+
+  </div>
+
+</motion.div>
+
+  {/* LIVE MESSAGE */}
+
+  {missYou && (
+
+    <motion.div
+      initial={{
+        opacity: 0,
+        scale: 0.8,
+      }}
+      animate={{
+        opacity: 1,
+        scale: 1,
+      }}
+      className="mt-8 bg-pink-500/10 border border-pink-500/20 p-6 rounded-3xl text-center relative overflow-hidden"
+    >
+
+      {/* FLOATING HEARTS */}
+
+      <div className="absolute top-2 left-6 text-3xl animate-bounce">
+        ❤️
+      </div>
+
+      <div className="absolute right-8 top-4 text-2xl animate-pulse">
+        💖
+      </div>
+
+      <div className="absolute bottom-2 left-1/2 text-3xl animate-bounce">
+        💘
+      </div>
+
+      <h3 className="text-3xl font-bold text-pink-300">
+        Someone is thinking about you ❤️
+      </h3>
+
+      <p className="text-zinc-300 mt-4 text-lg">
+        Sent at {missTime}
+      </p>
+
+    </motion.div>
+  )}
+
+</motion.div>
+
+{/* MOOD SELECTOR */}
+
+<div className="mb-10">
+
+  <h2 className="text-2xl font-bold mb-5">
+    Choose Your Mood ✨
+  </h2>
+
+  <div className="flex flex-wrap gap-4">
+
+    <button
+      onClick={() => setTheme("romantic")}
+      className={`px-5 py-3 rounded-2xl transition-all duration-300 ${
+        theme === "romantic"
+          ? "bg-pink-500 text-white"
+          : "bg-zinc-800"
+      }`}
+    >
+      ❤️ Romantic
+    </button>
+
+    <button
+      onClick={() => setTheme("calm")}
+      className={`px-5 py-3 rounded-2xl transition-all duration-300 ${
+        theme === "calm"
+          ? "bg-cyan-500 text-white"
+          : "bg-zinc-800"
+      }`}
+    >
+      🌙 Calm
+    </button>
+
+    <button
+      onClick={() => setTheme("sad")}
+      className={`px-5 py-3 rounded-2xl transition-all duration-300 ${
+        theme === "sad"
+          ? "bg-gray-500 text-white"
+          : "bg-zinc-800"
+      }`}
+    >
+      🌧️ Sad
+    </button>
+
+    <button
+      onClick={() => setTheme("dreamy")}
+      className={`px-5 py-3 rounded-2xl transition-all duration-300 ${
+        theme === "dreamy"
+          ? "bg-purple-500 text-white"
+          : "bg-zinc-800"
+      }`}
+    >
+      ✨ Dreamy
+    </button>
+
+    <button
+      onClick={() => setTheme("passion")}
+      className={`px-5 py-3 rounded-2xl transition-all duration-300 ${
+        theme === "passion"
+          ? "bg-red-500 text-white"
+          : "bg-zinc-800"
+      }`}
+    >
+      🔥 Passion
+    </button>
+
+  </div>
+</div>
+
         {/* LOVE TIMER */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -394,14 +987,46 @@ const calculateLoveLevel = () => {
     Our Song 🎵
   </h2>
 
+  {/* MOOD MUSIC */}
+
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  className="mb-10 bg-white/5 border border-green-500/20 p-6 rounded-3xl backdrop-blur-md"
+>
+
+  <div className="flex items-center justify-between flex-wrap gap-4 mb-6">
+
+    <div>
+
+      <h2 className="text-3xl font-bold">
+        Mood Music 🎵
+      </h2>
+
+      <p className="text-zinc-400 mt-2">
+        Music changes with your relationship vibe ✨
+      </p>
+
+    </div>
+
+    <div className="bg-green-500/20 px-5 py-3 rounded-2xl text-green-300">
+      Current Mood: {theme}
+    </div>
+
+  </div>
+
   <iframe
-    style={{ borderRadius: "20px" }}
-    src="https://open.spotify.com/embed/track/4PTG3Z6ehGkBFwjybzWkR8"
+    style={{
+      borderRadius: "20px",
+    }}
+    src={getMoodSong()}
     width="100%"
     height="152"
     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
     loading="lazy"
   ></iframe>
+
+</motion.div>
 </div>
 
 {/* OPEN WHEN SECTION */}
