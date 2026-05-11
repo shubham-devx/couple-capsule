@@ -389,7 +389,7 @@ const getMoodSong = () => {
   return (
     
   <div
-  className={`min-h-screen text-white transition-all duration-1000 overflow-hidden relative ${getBackgroundStyle()}`}
+  className={`min-h-screen overflow-x-hidden text-white transition-all duration-1000 overflow-hidden relative ${getBackgroundStyle()}`}
 >
   {renderThemeEffect()}
 {/* BACKGROUND GLOWS */}
@@ -398,14 +398,14 @@ const getMoodSong = () => {
 
     <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-red-500/20 blur-[120px] rounded-full" />
       {/* CONTAINER */}
-    <div className="relative max-w-6xl mx-auto px-4 py-10">
-
+   <div className="relative max-w-6xl mx-auto px-3 sm:px-4 md:px-6 py-6 md:py-10 pb-24"
+>
 
   {/* RELATIONSHIP DATE */}
 
   <div className="mb-10 bg-zinc-900/70 border border-zinc-800 p-6 rounded-3xl">
 
-    <h2 className="text-2xl font-bold mb-5">
+    <h2 className="text-xl sm:text-2xl font-bold mb-5">
       Set Your First Day ❤️
     </h2>
 
@@ -417,7 +417,7 @@ const getMoodSong = () => {
         onChange={(e) =>
           setAnniversaryDate(e.target.value)
         }
-        className="p-4 rounded-2xl bg-zinc-800 outline-none"
+        className="w-full p-4 rounded-2xl bg-zinc-800 outline-none"
       />
 
       <button
@@ -432,7 +432,7 @@ const getMoodSong = () => {
 
   
         {/* HEADER */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-10">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-10 text-center md:text-left">
 <motion.div
   initial={{ opacity: 0, y: -20 }}
   animate={{ opacity: 1, y: 0 }}
@@ -447,7 +447,7 @@ const getMoodSong = () => {
       duration: 3,
       repeat: Infinity,
     }}
-    className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-pink-400 via-red-400 to-purple-400 bg-clip-text text-transparent"
+    className="text-3xl sm:text-5xl md:text-7xl font-bold leading-tight bg-gradient-to-r from-pink-400 via-red-400 to-purple-400 bg-clip-text text-transparent"
   >
     {capsule.personOne} ❤️ {capsule.personTwo}
   </motion.h1>
@@ -470,7 +470,7 @@ const getMoodSong = () => {
               navigator.clipboard.writeText(window.location.href);
               alert("Link Copied ❤️");
             }}
-            className="bg-white text-black px-5 py-3 rounded-2xl font-semibold hover:scale-105 duration-300"
+            className="w-full sm:w-auto bg-white text-black px-5 py-3 rounded-2xl font-semibold hover:scale-105 duration-300"
           >
             Share Space 🔗
           </button>
@@ -483,7 +483,7 @@ const getMoodSong = () => {
   className="mb-10 bg-white/5 border border-white/10 p-6 rounded-3xl backdrop-blur-md"
 >
 
-  <h2 className="text-2xl font-bold mb-4">
+  <h2 className="text-lg sm:text-2xl text-pink-300 italic leading-relaxed">
     Daily Love Quote ❤️
   </h2>
 
@@ -505,7 +505,7 @@ const getMoodSong = () => {
 
     <div>
 
-      <h2 className="text-3xl font-bold">
+     <h2 className="text-2xl sm:text-3xl font-bold">
         Missing Them? 🥺
       </h2>
 
@@ -536,9 +536,9 @@ const getMoodSong = () => {
   initial={{ opacity: 0, y: 20 }}
   animate={{ opacity: 1, y: 0 }}
   className="mb-10 bg-white/5 border border-cyan-500/20 p-6 rounded-3xl backdrop-blur-md"
->
+  >
 
-  <h2 className="text-3xl font-bold mb-6">
+  <h2 className="text-5xl sm:text-7xl font-bold mt-6">
     Shared Countdown ⏳
   </h2>
 
