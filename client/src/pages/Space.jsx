@@ -84,7 +84,7 @@ const fetchCapsule = async () => {
   const start = new Date(capsule.anniversaryDate);
   const now = new Date();
 
-  const diff =  now-start ;
+  const diff =  now - start ;
 
   return Math.floor(
     diff / (1000 * 60 * 60 * 24)
@@ -202,11 +202,11 @@ const renderThemeEffect = () => {
   if (theme === "romantic") {
     return (
       <>
-        <div className="absolute top-20 left-20 text-6xl animate-bounce z-0">
+        <div className="hidden md:block absolute left-10 top-40 text-5xl animate-bounce" >
           ❤️
         </div>
 
-        <div className="absolute top-40 right-32 text-5xl animate-pulse z-0">
+        <div className="hidden md:block absolute right-10 top-52 text-4xl animate-pulse">
           💖
         </div>
 
@@ -487,7 +487,7 @@ const getMoodSong = () => {
     Daily Love Quote ❤️
   </h2>
 
-  <p className="text-2xl text-pink-300 italic leading-relaxed">
+  <p className="text-lg sm:text-2xl text-pink-300 italic leading-relaxed" >
     “{randomQuote}”
   </p>
 
@@ -523,7 +523,7 @@ const getMoodSong = () => {
         scale: 0.95,
       }}
       onClick={sendMissYou}
-      className="bg-gradient-to-r from-pink-500 to-red-500 px-8 py-4 rounded-2xl text-lg font-semibold shadow-xl"
+      className="w-full sm:w-auto bg-gradient-to-r from-pink-500 to-red-500 px-8 py-4 rounded-2xl text-lg font-semibold shadow-xl"
     >
       Missing You ❤️
     </motion.button>
@@ -538,7 +538,7 @@ const getMoodSong = () => {
   className="mb-10 bg-white/5 border border-cyan-500/20 p-6 rounded-3xl backdrop-blur-md"
   >
 
-  <h2 className="text-5xl sm:text-7xl font-bold mt-6">
+  <h2 className="text-3xl sm:text-5xl font-bold mt-6">
     Shared Countdown ⏳
   </h2>
 
@@ -551,7 +551,7 @@ const getMoodSong = () => {
       onChange={(e) =>
         setMeetTitle(e.target.value)
       }
-      className="flex-1 p-4 rounded-2xl bg-zinc-800 outline-none"
+      className="w-full flex-1 p-4 rounded-2xl bg-zinc-800 outline-none"
     />
 
     <input
@@ -621,7 +621,7 @@ const getMoodSong = () => {
       onChange={(e) =>
         setFutureTitle(e.target.value)
       }
-      className="p-4 rounded-2xl bg-zinc-800 outline-none"
+      className="w-full p-4 rounded-2xl bg-zinc-800 outline-none"
     />
 
     <textarea
@@ -644,7 +644,7 @@ const getMoodSong = () => {
 
     <button
       onClick={saveFutureLetter}
-      className="bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-4 rounded-2xl text-lg font-semibold"
+      className="w-full sm:w-auto bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-4 rounded-2xl text-lg font-semibold"
     >
       Save Future Letter 💌
     </button>
@@ -758,7 +758,7 @@ const getMoodSong = () => {
         💘
       </div>
 
-      <h3 className="text-3xl font-bold text-pink-300">
+      <h3 className="text-2xl sm:text-3xl font-bold text-pink-300">
         Someone is thinking about you ❤️
       </h3>
 
@@ -779,7 +779,7 @@ const getMoodSong = () => {
     Choose Your Mood ✨
   </h2>
 
-  <div className="flex flex-wrap gap-4">
+  <div className="flex flex-wrap gap-3">
 
     <button
       onClick={() => setTheme("romantic")}
@@ -845,7 +845,7 @@ const getMoodSong = () => {
           animate={{ opacity: 1, y: 0 }}
           className="mb-10 bg-pink-500/20 border border-pink-500/30 p-6 rounded-3xl backdrop-blur-md shadow-xl"
         >
-          <h2 className="text-2xl md:text-4xl font-bold">
+          <h2 className="text-xl sm:text-3xl md:text-4xl font-bold leading-snug">
             Together for {calculateLoveDays()} Days ❤️
           </h2>
 
@@ -865,7 +865,7 @@ const getMoodSong = () => {
   <div className="flex items-center justify-between flex-wrap gap-4 mb-10">
 
     <div>
-      <h2 className="text-4xl md:text-5xl font-bold">
+      <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold">
         ❤️ 2026 Wrapped ❤️
       </h2>
 
@@ -886,7 +886,7 @@ const getMoodSong = () => {
         Days Together ❤️
       </h3>
 
-      <p className="text-5xl font-bold mt-3 text-pink-400">
+      <p className="text-3xl sm:text-5xl font-bold mt-3 text-pink-400">
         {calculateLoveDays()}
       </p>
     </div>
@@ -897,7 +897,7 @@ const getMoodSong = () => {
         Memories Added 📸
       </h3>
 
-      <p className="text-5xl font-bold mt-3 text-purple-400">
+      <p className="text-3xl sm:text-5xl font-bold mt-3 text-purple-400">
         {capsule.memories.length}
       </p>
     </div>
@@ -908,7 +908,7 @@ const getMoodSong = () => {
         Favorite Song 🎵
       </h3>
 
-      <p className="text-3xl font-bold mt-3 text-red-400">
+      <p className="text-3xl sm:text-5xl font-bold mt-3 text-red-400">
         Perfect
       </p>
     </div>
@@ -919,7 +919,7 @@ const getMoodSong = () => {
         Most Emotional Day 🥺
       </h3>
 
-      <p className="text-3xl font-bold mt-3 text-pink-300">
+      <p className="text-3xl sm:text-5xl  font-bold mt-3 text-pink-300">
   {calculateEmotionalDay()}
 </p>
     </div>
@@ -930,7 +930,7 @@ const getMoodSong = () => {
         Late Night Talks 🌙
       </h3>
 
-      <p className="text-5xl font-bold mt-3 text-orange-400">
+      <p className="text-3xl sm:text-5xl font-bold mt-3 text-orange-400">
   {calculateLateNightTalks()}
 </p>
     </div>
@@ -941,7 +941,7 @@ const getMoodSong = () => {
         Love Level 💖
       </h3>
 
-      <p className="text-5xl font-bold mt-3 text-red-500">
+      <p className="text-3xl sm:text-5xl font-bold mt-3 text-red-500">
   {calculateLoveLevel()}
 </p>
     </div>
@@ -962,7 +962,7 @@ const getMoodSong = () => {
               placeholder="Memory title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="flex-1 p-4 rounded-2xl bg-zinc-800 outline-none"
+              className="w-full flex-1 p-4 rounded-2xl bg-zinc-800 outline-none"
             />
 
             <input
@@ -970,12 +970,12 @@ const getMoodSong = () => {
               placeholder="Image URL"
               value={image}
               onChange={(e) => setImage(e.target.value)}
-              className="flex-1 p-4 rounded-2xl bg-zinc-800 outline-none"
+              className="w-full flex-1 p-4 rounded-2xl bg-zinc-800 outline-none"
             />
 
             <button
               onClick={addMemory}
-              className="bg-pink-500 px-8 py-4 rounded-2xl font-semibold hover:bg-pink-600 duration-300"
+              className="w-full sm:w-auto bg-pink-500 px-8 py-4 rounded-2xl font-semibold hover:bg-pink-600 duration-300"
             >
               Add ❤️
             </button>
@@ -1021,7 +1021,7 @@ const getMoodSong = () => {
     }}
     src={getMoodSong()}
     width="100%"
-    height="152"
+    height="180"
     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
     loading="lazy"
   ></iframe>
@@ -1033,7 +1033,7 @@ const getMoodSong = () => {
 
 <div className="mb-14">
 
-  <h2 className="text-3xl md:text-4xl font-bold mb-8">
+  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8">
     Open When... 🔒❤️
   </h2>
 
@@ -1045,7 +1045,7 @@ const getMoodSong = () => {
   <summary className="list-none flex items-center justify-between">
 
     <div>
-      <h3 className="text-2xl font-semibold">
+      <h3 className="text-xl sm:text-2xl font-semibold">
         Open when sad 😭
       </h3>
 
@@ -1127,7 +1127,7 @@ const getMoodSong = () => {
   <summary className="list-none flex items-center justify-between">
 
     <div>
-      <h3 className="text-2xl font-semibold">
+      <h3 className="text-xl sm:text-2xl font-semibold">
         Open when angry 😤
       </h3>
 
@@ -1200,7 +1200,7 @@ const getMoodSong = () => {
   <summary className="list-none flex items-center justify-between">
 
     <div>
-      <h3 className="text-2xl font-semibold">
+      <h3 className="text-xl sm:text-2xl font-semibold">
         Open when lonely 🌙
       </h3>
 
@@ -1273,7 +1273,7 @@ const getMoodSong = () => {
   <summary className="list-none flex items-center justify-between">
 
     <div>
-      <h3 className="text-2xl font-semibold">
+      <h3 className="text-xl sm:text-2xl font-semibold">
         Open when overthinking 🥺
       </h3>
 
@@ -1385,7 +1385,7 @@ const getMoodSong = () => {
         <img
           src={memory.image}
           alt=""
-          className="w-full object-cover hover:scale-110 duration-500"
+          className="w-full h-auto max-h-[500px] object-cover hover:scale-110 duration-500"
         />
       </div>
 
